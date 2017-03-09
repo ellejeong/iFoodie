@@ -12,42 +12,37 @@ import {
   View
 } from 'react-native';
 
+import Welcome from './app/components/Welcome/Welcome.js'
+
+
 export default class iFoodie extends Component {
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+      <View style={styles.ifoodie}>
+        <Text style={styles.ifoodieTxt}>iFoodie</Text>
+        <Welcome />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  ifoodie: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#309b4e',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flexGrow:1,
+    marginTop: 0,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  ifoodieTxt: {
+      color: "#FFFFFF",
+      marginTop: 10,
+      fontSize: 60,
+      width: 200,
+      textAlign: 'center',
+      opacity: 0.9
+  }
 });
 
 AppRegistry.registerComponent('iFoodie', () => iFoodie);
