@@ -1,4 +1,4 @@
-package com.foodie;
+package com.ifoodie;
 
 import android.app.Application;
 
