@@ -1,47 +1,37 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  NavigatorIOS
 } from 'react-native';
 
-import Welcome from './app/components/Welcome/Welcome.js'
+import Welcome from './app/components/Welcome/Welcome.js';
+import EntryPage from './app/components/EntryPage/EntryPage.js';
 
 
 export default class iFoodie extends Component {
 
   render() {
     return (
-      <View style={styles.ifoodie}>
-        <Text style={styles.ifoodieTxt}>iFoodie</Text>
-        <Welcome />
-      </View>
+
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'Welcome',
+          component: Welcome
+        }}
+      />
+
     );
   }
 }
 
 const styles = StyleSheet.create({
-  ifoodie: {
+  container: {
     flex: 1,
-    backgroundColor: '#309b4e',
-    alignItems: 'center',
-    flexGrow:1,
-    marginTop: 0,
-  },
-  ifoodieTxt: {
-      color: "#FFFFFF",
-      marginTop: 10,
-      fontSize: 60,
-      width: 200,
-      textAlign: 'center',
-      opacity: 0.9
+    backgroundColor: '#309b4e'
   }
 });
 
