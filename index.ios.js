@@ -16,7 +16,6 @@ import App from './app/App';
 
 //   render() {
 //     return (
-
 //       <NavigatorIOS
 //         style={styles.container}
 //         initialRoute={{

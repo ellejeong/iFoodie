@@ -33,4 +33,3 @@ export const createRestaurant = (name) => {
 			.catch(console.error);
 	}
 }
-

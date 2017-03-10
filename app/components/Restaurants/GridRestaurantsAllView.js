@@ -9,7 +9,7 @@ import {
   Text
 } from 'react-native';
 
-var items = Array.apply(null, Array(12)).map((v, i) => {
+var items = Array.apply(null, Array(60)).map((v, i) => {
     return 'http://placehold.it/200x200?text=1'
 });
 
@@ -19,7 +19,7 @@ export default class GridRestaurantsAllView extends Component {
   constructor(props) {
     super(props);
     var dataSource = new ListView.DataSource({rowHasChanged:(r1, r2) => r1.guid != r2.guid});
-    this.state = {
+    this.state = { 
         dataSource: dataSource.cloneWithRows(items)
      };
   }
@@ -44,30 +44,37 @@ renderRow(rowData, sectionID, rowID) {
 
   render() {
     return (
+        <View style={styles.bigContainer}>
         <ListView
             dataSource = { this.state.dataSource }
             renderRow = { this.renderRow.bind(this) }>
         </ListView>
+        </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
-	container: {
-		backgroundColor: '#309b4e',
-	},
-	row: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		padding: 10,
-		margin: 10,
-
-	},
-	thumb: {
-		width: 50,
-		height: 50,
-	},
-	text: {
-		flex: 1,
-	}
+bigContainer: {
+    backgroundColor: '#309b4e',
+    flexDirection:'column',
+    justifyContent:'space-between',
+    height: '100%'
+    },
+ container: {
+    borderBottomWidth: 1,
+    height: 60
+    },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  thumb: {
+    width: 50,
+    height: 50,
+  },
+  text: {
+    flex: 1,
+  },
 });
+
