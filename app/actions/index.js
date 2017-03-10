@@ -25,9 +25,10 @@ export const addRestaurant = name => {
 export const createRestaurant = (name) => {
 	return dispatch => {
 		store.save('restaurant', { name })
-			.then(savedRestaurant => {
+			.then(() => store.get('restaurant'))
+			.then((savedRestaurant) => {
 				console.log(savedRestaurant);
-				dispatch(addRestaurant(name));
+				dispatch(addRestaurant(savedRestaurant.name));
 			})
 			.catch(console.error);
 	}

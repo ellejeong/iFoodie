@@ -15,7 +15,7 @@ import {
 // import WelcomeForm from './WelcomeForm';
 import { createRestaurant } from '../../actions/index';
 
-export class WelcomeForm extends Component {
+class WelcomeForm extends Component {
 
   constructor(props) {
     super(props);
@@ -75,7 +75,7 @@ export class WelcomeForm extends Component {
 
 const mapStateToProps = state => {
   console.log(state);
-  return { name: state.editRestaurant };
+  return { name: state.editRestaurant.name };
 };
 
 const mapDispatchToProps = dispatch => {
