@@ -36,7 +36,7 @@ export default class WelcomeForm extends Component {
             <Text style={styles.helloTxt}>Hi, User! {"\n"}  Where are you eating today?</Text>
         </View>
         <TextInput
-            onChange={ (text) => this.setState({txt: text}) }
+            // onChange={ (text) => this.setState({txt: text}) }
             style={styles.input}
             placeholder="Restaurant Name"
             placeholderTextColor='#9cd19d'
