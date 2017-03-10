@@ -1,14 +1,9 @@
-import ADD_RESTAURANT from '../actions/index';
+import { combineReducers } from 'redux';
 
-const initialState = {};
+import editRestaurant from './restaurantReducer';
 
-export default (state = initialState, action) => {
-	switch (action.type) {
+export default combineReducers({
+	editRestaurant
+});
 
-		case ADD_RESTAURANT:
-			return action.name;
 
-		default:
-			return state;
-	}
-};

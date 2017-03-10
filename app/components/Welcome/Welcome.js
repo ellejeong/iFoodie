@@ -10,19 +10,19 @@ import {
 import WelcomeForm from './WelcomeForm';
 
 export default class Welcome extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       text: 'Restaurant Name'
-//     };
-//   }
+  // constructor() {
+  //   super();
+  //   // this.state = {
+  //   //   text: 'Restaurant Name'
+  //   // };
+  // }
 
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
-            <Image 
-            source={require('../../images/momo.jpg')} 
+            <Image
+            source={require('../../images/momo.jpg')}
             />
             <Text style={styles.title}>An app made for fellow foodies to track their favorite eats!</Text>
         </View>

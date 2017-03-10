@@ -13,12 +13,12 @@ import {
 } from 'react-native';
 
 // import WelcomeForm from './WelcomeForm';
-import { createRestaurant } from '../actions/index';
+import { createRestaurant } from '../../actions/index';
 
 export class WelcomeForm extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       text: ''
     };
@@ -32,6 +32,7 @@ export class WelcomeForm extends Component {
 //       this.setState
 //   }
   handleSubmit(event) {
+    console.log('Props:', this.props);
     this.props.handleSubmit(this.state.text);
     Actions.restaurants();
   }
@@ -61,7 +62,9 @@ export class WelcomeForm extends Component {
 
         <TouchableOpacity
             // onPress={this.onNextPressed.bind(this)}
-            style={styles.buttonContainer}>
+          style={styles.buttonContainer}
+          onPress={this.handleSubmit}
+        >
             <Text style={styles.buttonTxt}>Next</Text>
         </TouchableOpacity>
 
@@ -71,7 +74,8 @@ export class WelcomeForm extends Component {
 }
 
 const mapStateToProps = state => {
-  return { name: state.name };
+  console.log(state);
+  return { name: state.editRestaurant };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -79,10 +83,10 @@ const mapDispatchToProps = dispatch => {
     handleSubmit: (name) => {
       dispatch(createRestaurant(name));
     },
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(WelcomeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeForm);
 
 
 const styles = StyleSheet.create({
