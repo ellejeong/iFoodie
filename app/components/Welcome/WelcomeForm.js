@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import {
   StyleSheet,
   Text,
@@ -11,20 +13,33 @@ import {
 } from 'react-native';
 
 // import WelcomeForm from './WelcomeForm';
+import { createRestaurant } from '../../actions/index';
 
-export default class WelcomeForm extends Component {
+class WelcomeForm extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      txt: ''
+      text: ''
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
 //   async onEnterPressed(value) {
 //       AsyncStorage.setItem("txt", value);
 //       this.setState
 //   }
+  handleSubmit(event) {
+    console.log('Props:', this.props);
+    this.props.handleSubmit(this.state.text);
+    Actions.restaurants();
+  }
+
+  handleChange(text) {
+    this.setState({text});
+  }
 
   render() {
     return (
@@ -36,37 +51,47 @@ export default class WelcomeForm extends Component {
             <Text style={styles.helloTxt}>Hi, User! {"\n"}  Where are you eating today?</Text>
         </View>
         <TextInput
-            // onChange={ (text) => this.setState({txt: text}) }
+            onChangeText={this.handleChange}
             style={styles.input}
             placeholder="Restaurant Name"
             placeholderTextColor='#9cd19d'
             returnKeyType= "go"
             autoCorrect={false}
+            value={this.state.text}
         />
-
         <View style={styles.buttonContainer}>
           <View style={styles.buttonOne}>
-          <TouchableOpacity 
-              // onPress={this.onNextPressed.bind(this)}
-              >
+          <TouchableOpacity>
               <Text style={styles.buttonTxt}>Next</Text>
           </TouchableOpacity>
           </View>
 
           <View style={styles.buttonTwo}>
-          <TouchableOpacity 
-              // onPress={this.onNextPressed.bind(this)} 
-              >
+          <TouchableOpacity onPress={this.handleSubmit}>
               <Text style={styles.buttonTxt}>Past Eats</Text>
           </TouchableOpacity>
           </View>
-
         </View>
-
       </View>
     );
   }
 }
+
+const mapStateToProps = state => {
+  console.log(state);
+  return { name: state.editRestaurant.name };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleSubmit: (name) => {
+      dispatch(createRestaurant(name));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeForm);
+
 
 const styles = StyleSheet.create({
   container: {

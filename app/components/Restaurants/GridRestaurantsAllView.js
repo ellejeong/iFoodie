@@ -29,14 +29,12 @@ renderRow(rowData, sectionID, rowID) {
         <View style={styles.container}>
         <TouchableHighlight underlayColor='#dddddd' style={{height:44}}>
             <View>
-
              <View style={styles.row}>
                 <Image style={styles.thumb} source={dummy} />
                 <Text style={styles.text}>
                     {rowData}
                 </Text>
                 </View>
-
             </View>
         </TouchableHighlight>
         </View>
@@ -79,7 +77,4 @@ bigContainer: {
     flex: 1,
   },
 });
-
-
-
 
