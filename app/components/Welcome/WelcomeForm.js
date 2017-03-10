@@ -18,7 +18,9 @@ export default class Welcome extends Component {
             <Text style={styles.helloTxt}>Hi, NAME! {"\n"}  Where are you eating today?</Text>
         </View>
         <TextInput
-            style={styles.input}
+          style={styles.input}
+          autofocus="true"
+          returnKeyType="next"
         />
       </View>
     );
