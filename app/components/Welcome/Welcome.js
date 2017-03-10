@@ -3,22 +3,23 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  KeyboardAvoidingView
 } from 'react-native';
 
 import WelcomeForm from './WelcomeForm';
 
 export default class Welcome extends Component {
-  constructor() {
-    super();
-    this.state = {
-      text: 'Restaurant Name'
-    };
-  }
+//   constructor() {
+//     super();
+//     this.state = {
+//       text: 'Restaurant Name'
+//     };
+//   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
             <Image 
             source={require('../../images/momo.jpg')} 
@@ -28,7 +29,7 @@ export default class Welcome extends Component {
         <View style={styles.formContainer}>
         <WelcomeForm />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

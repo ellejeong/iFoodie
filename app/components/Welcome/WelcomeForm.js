@@ -4,24 +4,52 @@ import {
   Text,
   View,
   TextInput,
-  Image
+  Image,
+  TouchableOpacity,
+  StatusBar,
+  AsyncStorage
 } from 'react-native';
 
-import WelcomeForm from './WelcomeForm';
+// import WelcomeForm from './WelcomeForm';
 
-export default class Welcome extends Component {
+export default class WelcomeForm extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      txt: ''
+    };
+  }
+
+//   async onEnterPressed(value) {
+//       AsyncStorage.setItem("txt", value);
+//       this.setState
+//   }
 
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar
+            barStyle='light-content'
+        />
         <View style={styles.helloContainer}>
-            <Text style={styles.helloTxt}>Hi, NAME! {"\n"}  Where are you eating today?</Text>
+            <Text style={styles.helloTxt}>Hi, User! {"\n"}  Where are you eating today?</Text>
         </View>
         <TextInput
-          style={styles.input}
-          autofocus="true"
-          returnKeyType="next"
+            // onChange={ (text) => this.setState({txt: text}) }
+            style={styles.input}
+            placeholder="Restaurant Name"
+            placeholderTextColor='#9cd19d'
+            returnKeyType= "go"
+            autoCorrect={false}
         />
+
+        <TouchableOpacity 
+            // onPress={this.onNextPressed.bind(this)} 
+            style={styles.buttonContainer}>
+            <Text style={styles.buttonTxt}>Next</Text>
+        </TouchableOpacity>
+
       </View>
     );
   }
@@ -36,16 +64,28 @@ const styles = StyleSheet.create({
       alignItems: 'center'
   },
   helloTxt: {
+      paddingHorizontal: 10,
       textAlign: 'center',
       fontSize: 18,
-      color: '#FFF'
+      color: '#FFF',
+      marginBottom: 10
   },
   input: {
-      height: 40,
+      height: 30,
       backgroundColor: '#43b764',
-      marginBottom: 20,
+      marginBottom: 10,
       color: '#FFF',
       paddingHorizontal: 10
+  },
+  buttonContainer: {
+      backgroundColor: '#447f45',
+      paddingVertical: 15
+
+  },
+  buttonTxt: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontWeight: '700'
   }
 
 });
