@@ -9,6 +9,7 @@ import {
 
 import Welcome from './app/components/Welcome/Welcome.js';
 import EntryPage from './app/components/EntryPage/EntryPage.js';
+import GridRestaurantsAllView from './app/components/Restaurants/GridRestaurantsAllView.js'
 
 
 export default class iFoodie extends Component {
@@ -20,7 +21,7 @@ export default class iFoodie extends Component {
         style={styles.container}
         initialRoute={{
           title: 'Welcome',
-          component: Welcome
+          component: GridRestaurantsAllView
         }}
       />
 

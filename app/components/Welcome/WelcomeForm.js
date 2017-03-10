@@ -44,11 +44,24 @@ export default class WelcomeForm extends Component {
             autoCorrect={false}
         />
 
-        <TouchableOpacity 
-            // onPress={this.onNextPressed.bind(this)} 
-            style={styles.buttonContainer}>
-            <Text style={styles.buttonTxt}>Next</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <View style={styles.buttonOne}>
+          <TouchableOpacity 
+              // onPress={this.onNextPressed.bind(this)}
+              >
+              <Text style={styles.buttonTxt}>Next</Text>
+          </TouchableOpacity>
+          </View>
+
+          <View style={styles.buttonTwo}>
+          <TouchableOpacity 
+              // onPress={this.onNextPressed.bind(this)} 
+              >
+              <Text style={styles.buttonTxt}>Past Eats</Text>
+          </TouchableOpacity>
+          </View>
+
+        </View>
 
       </View>
     );
@@ -78,14 +91,25 @@ const styles = StyleSheet.create({
       paddingHorizontal: 10
   },
   buttonContainer: {
-      backgroundColor: '#447f45',
-      paddingVertical: 15
-
+      flexDirection: 'row',
+      justifyContent: 'space-between',
   },
   buttonTxt: {
     textAlign: 'center',
     color: '#FFFFFF',
     fontWeight: '700'
+  },
+  buttonOne: {
+    backgroundColor: '#447f45',
+    paddingVertical:10,
+    paddingHorizontal: 10,
+    width: 100
+  },
+  buttonTwo: {
+    backgroundColor: '#447f45',
+    paddingVertical:10,
+    paddingHorizontal: 10,
+    width: 100
   }
 
 });
