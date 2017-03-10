@@ -12,7 +12,6 @@ import {
   AsyncStorage
 } from 'react-native';
 
-// import WelcomeForm from './WelcomeForm';
 import { createRestaurant } from '../../actions/index';
 
 class WelcomeForm extends Component {
@@ -27,10 +26,6 @@ class WelcomeForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-//   async onEnterPressed(value) {
-//       AsyncStorage.setItem("txt", value);
-//       this.setState
-//   }
   handleSubmit(event) {
     console.log('Props:', this.props);
     this.props.handleSubmit(this.state.text);

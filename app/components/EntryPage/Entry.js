@@ -13,8 +13,6 @@ export default class Entry extends Component {
   render() {
     return (
       <View style={styles.container}>
-
-
       </View>
     );
   }

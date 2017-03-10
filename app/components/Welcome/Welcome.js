@@ -10,12 +10,6 @@ import {
 import WelcomeForm from './WelcomeForm';
 
 export default class Welcome extends Component {
-  // constructor() {
-  //   super();
-  //   // this.state = {
-  //   //   text: 'Restaurant Name'
-  //   // };
-  // }
 
   render() {
     return (
