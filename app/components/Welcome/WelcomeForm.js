@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import {
   StyleSheet,
   Text,
@@ -11,20 +13,32 @@ import {
 } from 'react-native';
 
 // import WelcomeForm from './WelcomeForm';
+import { createRestaurant } from '../actions/index';
 
-export default class WelcomeForm extends Component {
+export class WelcomeForm extends Component {
 
   constructor() {
     super();
     this.state = {
-      txt: ''
+      text: ''
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
 //   async onEnterPressed(value) {
 //       AsyncStorage.setItem("txt", value);
 //       this.setState
 //   }
+  handleSubmit(event) {
+    this.props.handleSubmit(this.state.text);
+    Actions.restaurants();
+  }
+
+  handleChange(text) {
+    this.setState({text});
+  }
 
   render() {
     return (
@@ -36,16 +50,17 @@ export default class WelcomeForm extends Component {
             <Text style={styles.helloTxt}>Hi, User! {"\n"}  Where are you eating today?</Text>
         </View>
         <TextInput
-            // onChange={ (text) => this.setState({txt: text}) }
+            onChangeText={this.handleChange}
             style={styles.input}
             placeholder="Restaurant Name"
             placeholderTextColor='#9cd19d'
             returnKeyType= "go"
             autoCorrect={false}
+            value={this.state.text}
         />
 
-        <TouchableOpacity 
-            // onPress={this.onNextPressed.bind(this)} 
+        <TouchableOpacity
+            // onPress={this.onNextPressed.bind(this)}
             style={styles.buttonContainer}>
             <Text style={styles.buttonTxt}>Next</Text>
         </TouchableOpacity>
@@ -54,6 +69,21 @@ export default class WelcomeForm extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { name: state.name };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleSubmit: (name) => {
+      dispatch(createRestaurant(name));
+    },
+  }
+}
+
+export default connect(mapStateToProps)(WelcomeForm);
+
 
 const styles = StyleSheet.create({
   container: {
