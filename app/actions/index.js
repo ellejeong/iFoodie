@@ -26,24 +26,12 @@ export const loadAllRestaurants = restaurants => {
 // 	}
 // }
 
-// export const createRestaurant = (name) => {
-// 	return dispatch => {
-// 		store.save('restaurant', { name })
-// 			.then(() => store.get('restaurant'))
-// 			.then((savedRestaurant) => {
-// 				console.log(savedRestaurant);
-// 				dispatch(addRestaurant(savedRestaurant.name));
-// 			})
-// 			.catch(console.error);
-// 	};
-// };
-
 // export const createRestaurant = name => {
 // 	return dispatch => {
 // 		firebase.database().ref(`/restaurants/${name}`).set({ name })
-// 			.then(firebase.database().ref(`/restaurants/${name}`).on('value').then(snapshot => {
+// 			.then(firebase.database().ref(`/restaurants/${name}`).on('value', snapshot => {
 // 				console.log('snapshot', snapshot);
-// 				let restaurant = snapshot.val().name;
+// 				let restaurant = snapshot.val();
 // 				dispatch(addRestaurant(restaurant));
 // 		}))
 // 			.catch(console.error);
@@ -66,10 +54,6 @@ export const createRestaurant = name => {
 		// .catch(console.error);
 	};
 };
-
-// export const createRestaurant = name => {
-// 	return
-// }
 
 export const loadRestaurant = restaurant => {
 	return dispatch => {

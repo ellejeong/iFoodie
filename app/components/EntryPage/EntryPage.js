@@ -18,12 +18,6 @@ class EntryPage extends Component {
     super(props)
   }
 
-  // componentWillMount() {
-  //   console.log(this.props);
-  //   this.props.loadCurrentRestaurant(this.props.restaurant.name)
-  //   // loadRestaurant(this.props.restaurant.name)
-  // }
-
   render() {
     console.log('props in entry page', this.props);
     const temp = new Date;
@@ -73,18 +67,10 @@ class EntryPage extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state in entry page', state);
   return {
     restaurant: state.restaurant
   };
 };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     loadCurrentRestaurant: (currentRestaurant) => {
-//       return dispatch(loadRestaurant(currentRestaurant));
-//   }}
-// }
 
 export default connect(mapStateToProps)(EntryPage);
 
