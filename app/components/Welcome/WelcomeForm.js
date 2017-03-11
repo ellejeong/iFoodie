@@ -12,7 +12,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import { createRestaurant } from '../../actions/index';
+import { createRestaurant, loadAllRestaurants } from '../../actions/index';
 
 class WelcomeForm extends Component {
 
@@ -44,6 +44,7 @@ class WelcomeForm extends Component {
   }
 
   render() {
+    console.log('state in render', this.state, 'props in render', this.props);
     return (
       <View style={styles.container}>
         <StatusBar
@@ -80,7 +81,7 @@ class WelcomeForm extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
+  console.log('state in mapStateToProps', state);
   return { name: state.editRestaurant.name };
 };
 
