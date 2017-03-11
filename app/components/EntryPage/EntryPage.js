@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
   dateContainer: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-    marginTop: 70,
     marginBottom: 20,
     alignItems: 'flex-end'
   },
@@ -90,7 +89,8 @@ const styles = StyleSheet.create({
       width: 160,
       textAlign: 'left',
       opacity: 0.9,
-      fontSize: 40
+      fontSize: 30,
+      fontWeight: 'bold'
   },
   locationContainer: {
     flexDirection:'column',

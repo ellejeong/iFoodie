@@ -9,9 +9,13 @@
   "dependencies": {
     "react": "~15.4.1",
     "react-native": "0.42.0",
+    "react-native-chooser": "^1.4.0",
+    "react-native-dropdown": "0.0.6",
+    "react-native-image-picker": "^0.26.2",
     "react-native-photo-grid": "0.0.2",
     "react-native-rename": "^1.0.10",
     "react-native-router-flux": "^3.38.0",
+    "react-native-selectme": "^1.2.3",
     "react-native-simple-store": "^1.1.0",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
