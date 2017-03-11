@@ -65,6 +65,7 @@ class WelcomeForm extends Component {
             value={this.state.text}
         />
         <View style={styles.buttonContainer}>
+
           <View style={styles.buttonOne}>
             <TouchableOpacity onPress={this.handleSubmitNewRestaurant}>
               <Text style={styles.buttonTxt}>Next</Text>
