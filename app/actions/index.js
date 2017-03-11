@@ -10,11 +10,12 @@ export const addRestaurant = name => {
 	};
 };
 
-export const loadAllRestaurants = () => {
+export const loadAllRestaurants = restaurants => {
 	return {
-		type: LOAD_ALL_RESTAURANTS
-	}
-}
+		type: LOAD_ALL_RESTAURANTS,
+		restaurants
+	};
+};
 
 export const createRestaurant = (name) => {
 	return dispatch => {
@@ -30,7 +31,7 @@ export const createRestaurant = (name) => {
 
 export const receiveAllRestaurants = () => {
 	return dispatch => {
-		store.get('restaurant', {})
+		store.get('restaurants', {})
 			.then(restaurants => {
 				dispatch(loadAllRestaurants(restaurants));
 			})
