@@ -29,8 +29,10 @@ class WelcomeForm extends Component {
   }
 
   handleSubmitNewRestaurant(event) {
-    console.log('Props:', this.props);
+    // console.log('Props:', this.props);
     this.props.handleSubmitNewRestaurant(this.state.text);
+    // console.log('TEXT', this.state.text);
+    // createRestaurant(this.state.text);
     Actions.entry();
   }
 
@@ -44,7 +46,7 @@ class WelcomeForm extends Component {
   }
 
   render() {
-    console.log('state in render', this.state, 'props in render', this.props);
+    // console.log('state in render', this.state, 'props in render', this.props);
     return (
       <View style={styles.container}>
         <StatusBar
@@ -64,13 +66,13 @@ class WelcomeForm extends Component {
         />
         <View style={styles.buttonContainer}>
           <View style={styles.buttonOne}>
-          <TouchableOpacity>
+            <TouchableOpacity onPress={this.handleSubmitNewRestaurant}>
               <Text style={styles.buttonTxt}>Next</Text>
           </TouchableOpacity>
           </View>
 
           <View style={styles.buttonTwo}>
-          <TouchableOpacity onPress={this.handleSubmit}>
+          <TouchableOpacity onPress={this.handleSubmitPastEats}>
               <Text style={styles.buttonTxt}>Past Eats</Text>
           </TouchableOpacity>
           </View>
@@ -80,10 +82,10 @@ class WelcomeForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('state in mapStateToProps', state);
-  return { name: state.editRestaurant.name };
-};
+// const mapStateToProps = state => {
+//   console.log('state in mapStateToProps', state);
+//   return { name: state.restaurant.name };
+// };
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -96,7 +98,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WelcomeForm);
+export default connect(null, mapDispatchToProps)(WelcomeForm);
 
 
 const styles = StyleSheet.create({

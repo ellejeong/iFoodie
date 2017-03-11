@@ -8,21 +8,35 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import Entry from './Entry';
+import { loadRestaurant } from '../../actions/index';
 
-export default class EntryPage extends Component {
+class EntryPage extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  // componentWillMount() {
+  //   console.log(this.props);
+  //   this.props.loadCurrentRestaurant(this.props.restaurant.name)
+  //   // loadRestaurant(this.props.restaurant.name)
+  // }
 
   render() {
+    console.log('props in entry page', this.props);
+    const temp = new Date;
+    const date = temp.toString().toUpperCase().slice(0, 15);
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
         <View style={styles.dateContainer}>
-            <Text style={styles.date}>MARCH 10TH 2017</Text>
+          <Text style={styles.date}>{date}</Text>
         </View>
 
         <View style={styles.headerContainer}>
-            <Text style={styles.restaurant}>SIKGAEK</Text>
+          <Text style={styles.restaurant}>{this.props.restaurant.name}</Text>
         </View>
 
             <View style={styles.locationContainer}>
@@ -40,7 +54,7 @@ export default class EntryPage extends Component {
             <TouchableOpacity>
               <Text style={styles.addButtonTxt}>add dish</Text>
             </TouchableOpacity>
-          </View> 
+          </View>
 
 
         <View style={styles.entryContainer}>
@@ -51,12 +65,28 @@ export default class EntryPage extends Component {
           <TouchableOpacity>
             <Text style={styles.saveButtonTxt}>save entry</Text>
           </TouchableOpacity>
-        </View> 
+        </View>
 
       </KeyboardAvoidingView>
     );
   }
 }
+
+const mapStateToProps = state => {
+  console.log('state in entry page', state);
+  return {
+    restaurant: state.restaurant
+  };
+};
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     loadCurrentRestaurant: (currentRestaurant) => {
+//       return dispatch(loadRestaurant(currentRestaurant));
+//   }}
+// }
+
+export default connect(mapStateToProps)(EntryPage);
 
 const styles = StyleSheet.create({
   container: {
