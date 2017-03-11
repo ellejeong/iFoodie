@@ -1,6 +1,8 @@
 import store from 'react-native-simple-store';
+import firebase from 'firebase';
 
 export const ADD_RESTAURANT = 'ADD_RESTAURANT';
+export const LOAD_RESTAURANT = 'LOAD_RESTAURANT';
 export const LOAD_ALL_RESTAURANTS = 'LOAD_ALL_RESTAURANTS';
 
 export const addRestaurant = name => {
@@ -17,15 +19,47 @@ export const loadAllRestaurants = restaurants => {
 	};
 };
 
-export const createRestaurant = (name) => {
+// export const loadRestaurant = restaurant => {
+// 	return {
+// 		type: LOAD_RESTAURANT,
+// 		restaurant: snapshot.val()
+// 	}
+// }
+
+// export const createRestaurant = name => {
+// 	return dispatch => {
+// 		firebase.database().ref(`/restaurants/${name}`).set({ name })
+// 			.then(firebase.database().ref(`/restaurants/${name}`).on('value', snapshot => {
+// 				console.log('snapshot', snapshot);
+// 				let restaurant = snapshot.val();
+// 				dispatch(addRestaurant(restaurant));
+// 		}))
+// 			.catch(console.error);
+// 	};
+// };
+
+export const createRestaurant = name => {
 	return dispatch => {
-		store.save('restaurant', { name })
-			.then(() => store.get('restaurant'))
-			.then((savedRestaurant) => {
-				console.log(savedRestaurant);
-				dispatch(addRestaurant(savedRestaurant.name));
-			})
-			.catch(console.error);
+		firebase.database().ref(`/restaurants/${name}`).set({ name })
+			.then(firebase.database().ref(`/restaurants/${name}`).once('value')
+				.then(snapshot => {
+					dispatch(addRestaurant(snapshot.val()));
+				}));
+			// .then((dispatch) => dispatch(addRestaurant(name)));
+		// .then(firebase.database().ref(`/restaurants/${name}`).once('value') .then(snapshot => {
+		// 	// console.log(snapshot.val());
+		// 	// let data = snapshot.val();
+		// 	dispatch({ type: ADD_RESTAURANT, name: snapshot.val() });
+		// })
+		// .catch(console.error);
+	};
+};
+
+export const loadRestaurant = restaurant => {
+	return dispatch => {
+		firebase.database().ref(`/restaurants/${restaurant}`).on('value', snapshot => {
+			dispatch({ type: LOAD_RESTAURANT, name: snapshot.val() });
+		});
 	};
 };
 

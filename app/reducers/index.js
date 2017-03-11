@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import editRestaurant from './restaurantReducer';
+import restaurant from './restaurantReducer';
 
 export default combineReducers({
-	editRestaurant
+	restaurant
 });
 
 
