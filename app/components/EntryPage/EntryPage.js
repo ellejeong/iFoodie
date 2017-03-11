@@ -9,6 +9,8 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+
 
 import Entry from './Entry';
 import { loadRestaurant } from '../../actions/index';
@@ -16,6 +18,13 @@ import { loadRestaurant } from '../../actions/index';
 class EntryPage extends Component {
   constructor(props) {
     super(props)
+
+    this.handlePress = this.handlePress.bind(this);
+  }
+
+  handlePress() {
+    // this.props.handlePress();
+    Actions.newDish();
   }
 
   render() {
@@ -45,7 +54,7 @@ class EntryPage extends Component {
             </View>
 
           <View style={styles.addButton}>
-            <TouchableOpacity>
+          <TouchableOpacity onPress={this.handlePress}>
               <Text style={styles.addButtonTxt}>add dish</Text>
             </TouchableOpacity>
           </View>
@@ -71,6 +80,14 @@ const mapStateToProps = state => {
     restaurant: state.restaurant
   };
 };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     handlePress: () => {
+//       dispatch()
+//     }
+//   }
+// }
 
 export default connect(mapStateToProps)(EntryPage);
 
