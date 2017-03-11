@@ -53,7 +53,7 @@ class WelcomeForm extends Component {
             barStyle='light-content'
         />
         <View style={styles.helloContainer}>
-            <Text style={styles.helloTxt}>Hi, User! {"\n"}  Where are you eating today?</Text>
+            <Text style={styles.helloTxt}>Where are you eating today?</Text>
         </View>
         <TextInput
             onChangeText={this.handleChange}
