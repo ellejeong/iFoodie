@@ -22,13 +22,20 @@ class WelcomeForm extends Component {
       text: ''
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitNewRestaurant = this.handleSubmitNewRestaurant.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmitPastEats = this.handleSubmitPastEats.bind(this);
+
   }
 
-  handleSubmit(event) {
+  handleSubmitNewRestaurant(event) {
     console.log('Props:', this.props);
-    this.props.handleSubmit(this.state.text);
+    this.props.handleSubmitNewRestaurant(this.state.text);
+    Actions.entry();
+  }
+
+  handleSubmitPastEats(event) {
+    this.props.handleSubmitPastEats();
     Actions.restaurants();
   }
 
@@ -79,9 +86,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleSubmit: (name) => {
+    handleSubmitNewRestaurant: (name) => {
       dispatch(createRestaurant(name));
     },
+    handleSubmitPastEats: () => {
+      dispatch(loadAllRestaurants());
+    }
   };
 };
 

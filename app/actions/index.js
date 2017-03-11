@@ -1,6 +1,7 @@
 import store from 'react-native-simple-store';
 
 export const ADD_RESTAURANT = 'ADD_RESTAURANT';
+export const LOAD_ALL_RESTAURANTS = 'LOAD_ALL_RESTAURANTS';
 
 export const addRestaurant = name => {
 	return {
@@ -8,6 +9,12 @@ export const addRestaurant = name => {
 		name
 	};
 };
+
+export const loadAllRestaurants = () => {
+	return {
+		type: LOAD_ALL_RESTAURANTS
+	}
+}
 
 export const createRestaurant = (name) => {
 	return dispatch => {
@@ -18,5 +25,15 @@ export const createRestaurant = (name) => {
 				dispatch(addRestaurant(savedRestaurant.name));
 			})
 			.catch(console.error);
-	}
-}
+	};
+};
+
+export const receiveAllRestaurants = () => {
+	return dispatch => {
+		store.get('restaurant', {})
+			.then(restaurants => {
+				dispatch(loadAllRestaurants(restaurants));
+			})
+			.catch(console.error);
+	};
+};
