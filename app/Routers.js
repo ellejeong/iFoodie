@@ -9,8 +9,8 @@ import EntryForm from './components/EntryPage/EntryForm'
 const RouterComponent = () => {
     return (
         <Router sceneStyle={{ paddingTop: 65 }}>
-            <Scene key="welcome" component={Welcome} title="Welcome" initial />
-            <Scene key="entry" component={EntryPage} title="RESTAURANT PAGE" />
+            <Scene key="welcome" component={Welcome} title="iFoodie" initial />
+            <Scene key="entry" component={EntryPage} title="Entry" />
             <Scene key="restaurants" component={GridRestaurantsAllView} title="Past Eats" />
             <Scene key="newDish" component={EntryForm} title="New Dish" />
         </Router>

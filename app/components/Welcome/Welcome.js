@@ -16,7 +16,8 @@ export default class Welcome extends Component {
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
             <Image
-            source={require('../../images/momo.jpg')}
+            source={require('../../images/logo.png')}
+            style={{height:100, width: 300, marginBottom: 10}}
             />
             <Text style={styles.title}>An app made for fellow foodies to track their favorite eats!</Text>
         </View>
