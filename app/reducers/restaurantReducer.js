@@ -6,11 +6,13 @@ const initialState = {};
 
 const restaurant = (state = initialState, action) => {
 	console.log('action in reducer:', action);
+	let newState = { date: action.date, name: action.name };
+			console.log('newstate: ', newState);
 
 	switch (action.type) {
 
 		case ADD_RESTAURANT:
-			return action.name;
+			return newState;
 
 		case LOAD_ALL_RESTAURANTS:
 			return action.restaurants;
