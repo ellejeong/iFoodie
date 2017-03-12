@@ -12,6 +12,7 @@ const RouterComponent = () => {
             <Scene key="welcome" component={Welcome} title="Welcome" initial />
             <Scene key="entry" component={EntryPage} title="RESTAURANT PAGE" />
             <Scene key="restaurants" component={GridRestaurantsAllView} title="Past Eats" />
+            <Scene key="newDish" component={EntryForm} title="New Dish" />
         </Router>
     );
 };
