@@ -10,13 +10,10 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-
-
-// import DropDown, { Select, Option, OptionList } from 'react-native-selectme';
-
 import {Select, Option} from "react-native-chooser";
 import Entry from './Entry';
 import { updateRestaurant } from '../../actions/index';
+const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
 const ImagePicker = require('react-native-image-picker');
 const cam = require('../../images/cam.png')
 
@@ -119,15 +116,14 @@ render() {
 
         <View style={styles.dishContainer}>
             <Text style={styles.dish}>Dish Name: </Text>
-            <TextInput
+                        <TextInput
                     onChangeText={this.onDishChange}
                     style={styles.dishInput}
                     placeholder="Dish Name"
                     placeholderTextColor='#9cd19d'
                     returnKeyType= "done"
                     autoCorrect={false}
-                    value={this.state.dish}
-                />
+                    value={this.state.dish}/>
         </View>
 
         <View style={styles.coursesContainer}>

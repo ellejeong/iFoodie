@@ -12,6 +12,8 @@
     "react-native": "0.42.0",
     "react-native-chooser": "^1.4.0",
     "react-native-dropdown": "0.0.6",
+    "react-native-google-places": "^2.0.9",
+    "react-native-google-places-autocomplete": "^1.2.8",
     "react-native-image-picker": "^0.26.2",
     "react-native-photo-grid": "0.0.2",
     "react-native-rename": "^1.0.10",

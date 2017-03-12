@@ -11,15 +11,31 @@ import {
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
+import RNGooglePlaces from 'react-native-google-places';
 
 import Entry from './Entry';
 import { loadRestaurant } from '../../actions/index';
+
+
+const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
+
 
 class EntryPage extends Component {
   constructor(props) {
     super(props)
 
     this.handlePress = this.handlePress.bind(this);
+  }
+
+
+  openSearchModal() {
+    RNGooglePlaces.openAutocompleteModal()
+    .then((place) => {
+        console.log(place);
+        // place represents user's selection from the 
+        // suggestions and it is a simplified Google Place object. 
+    })
+    .catch(error => console.log(error.message));  // error is a Javascript Error object 
   }
 
   // componentWillMount() {
@@ -55,26 +71,49 @@ class EntryPage extends Component {
         </View>
 
             <View style={styles.locationContainer}>
-            <TextInput
-                style={styles.location}
-                placeholder="Add location here ..."
-                placeholderTextColor='#9cd19d'
-                underlineColor= '#447f45'
-                returnKeyType= "done"
-                autoCorrect={false}
-            />
+                <GooglePlacesAutocomplete
+                      placeholder='Enter Location'
+                      minLength={2}
+                      listViewDisplayed='auto'
+                      autoFocus={false}
+                      fetchDetails={true}
+                      query={{ key: 'AIzaSyBX24ClG46CmZeN9iSOu9tCKJnljh9b09Q',
+                          language: 'en', // language of the results
+                          types: '(cities)' }}
+                      styles={{textInputContainer: {
+                                  backgroundColor: 'rgba(0,0,0,0)',
+                                  borderTopWidth: 0,
+                                  borderBottomWidth:0,
+                                  width: '100%'
+                              },
+                              textInput: {
+                                  marginLeft: 0,
+                                  marginRight: 0,
+                                  height: 38,
+                                  color: '#5d5d5d',
+                                  fontSize: 16
+                              },
+                              predefinedPlacesDescription: {
+                                  color: '#1faadb',
+                                  height: 50
+                              }, }}
+                      currentLocation={false}
+                      nearbyPlacesAPI='GooglePlacesSearch'/>
+
+
             </View>
+
+
+
+        <View style={styles.entryContainer}>
+          <Entry />
+        </View>
 
           <View style={styles.addButton}>
           <TouchableOpacity onPress={this.handlePress}>
               <Text style={styles.addButtonTxt}>add dish</Text>
             </TouchableOpacity>
           </View>
-
-
-        <View style={styles.entryContainer}>
-          <Entry />
-        </View>
 
         <View style={styles.saveButton}>
           <TouchableOpacity onPress={this.onSavePress}>
@@ -152,20 +191,31 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
   },
   locationContainer: {
-    flexDirection:'column',
+    flexDirection:'row',
+    flex: 2,
     alignItems: 'flex-start',
-    borderBottomColor:'#447f45',
-    borderBottomWidth: 1,
+    height: 50
   },
   location: {
       color: "#FFFFFF",
-      marginTop: 5,
-      width: '100%',
+      flex: 2,
+      marginTop: 10,
+      width: '75%',
       textAlign: 'left',
       opacity: 0.9,
-      fontSize: 15,
-      height: 25,
+      height: 40,
+      fontSize: 17,
       borderRadius: 2
+  },
+  addLocationButton: {
+    marginTop: 20,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: '#447f45',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 100,
+    width: 72
   },
   entryContainer: {
     flexDirection: 'column',
@@ -173,7 +223,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   addButton: {
+    position: 'absolute',
     marginTop: 20,
+    bottom: 10,
+    left: 10,
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
