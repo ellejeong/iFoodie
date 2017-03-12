@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   StyleSheet,
   View,
@@ -9,50 +10,84 @@ import {
   Text
 } from 'react-native';
 
+import { receiveAllRestaurants } from '../../reducers/index';
+
 var items = Array.apply(null, Array(60)).map((v, i) => {
     return 'http://placehold.it/200x200?text=1'
 });
 
 var dummy = require('../../images/momo.jpg');
 
-export default class GridRestaurantsAllView extends Component {
+console.log('got here');
+
+const mapStateToProps = state => {
+  console.log('am i here? in mapStateToProps');
+  return { restaurants: state.restaurants }
+};
+
+// const mapDispatchToProps = dispatch => {
+//   console.log('am i even fucking here? in mapdispatch to props?');
+//   return {
+//     componentWillMount:
+//       () => dispatch(receiveAllRestaurants())
+
+//   };
+// };
+
+export class GridRestaurantsAllView extends Component {
   constructor(props) {
+    console.log('am i here?');
     super(props);
     var dataSource = new ListView.DataSource({rowHasChanged:(r1, r2) => r1.guid != r2.guid});
-    this.state = { 
+    this.state = {
         dataSource: dataSource.cloneWithRows(items)
-     };
+    };
+
+    this.renderRow = this.renderRow.bind(this);
   }
 
-renderRow(rowData, sectionID, rowID) {
-    return (
-        <View style={styles.container}>
-        <TouchableHighlight underlayColor='#dddddd' style={{height:44}}>
-            <View>
-             <View style={styles.row}>
-                <Image style={styles.thumb} source={dummy} />
-                <Text style={styles.text}>
-                    {rowData}
-                </Text>
-                </View>
-            </View>
-        </TouchableHighlight>
-        </View>
-    );
-}
+
+  componentWillMount() {
+    console.log('loadrestaurants function', this.props);
+    receiveAllRestaurants();
+  }
+
+  renderRow(rowData) {
+    // had other props: , sectionID, rowID
+      return (
+          <View style={styles.container}>
+          <TouchableHighlight underlayColor='#dddddd' style={{height:44}}>
+              <View>
+              <View style={styles.row}>
+                  <Image style={styles.thumb} source={dummy} />
+                  <Text style={styles.text}>
+                      some stuff
+                  </Text>
+                  </View>
+              </View>
+          </TouchableHighlight>
+          </View>
+      );
+  }
 
 
-  render() {
+render() {
+    console.log('ALL OF THE RESTAURANTS', this.props);
     return (
         <View style={styles.bigContainer}>
         <ListView
             dataSource = { this.state.dataSource }
-            renderRow = { this.renderRow.bind(this) }>
+            renderRow={this.props.restaurants.map(restaurant => {
+            this.renderRow(restaurant);
+            })}>
         </ListView>
         </View>
     );
   }
 }
+
+export default connect(mapStateToProps)(GridRestaurantsAllView);
+
 
 var styles = StyleSheet.create({
 bigContainer: {

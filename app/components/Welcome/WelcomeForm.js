@@ -12,7 +12,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import { createRestaurant, loadAllRestaurants } from '../../actions/index';
+import { createRestaurant, receiveAllRestaurants } from '../../actions/index';
 
 class WelcomeForm extends Component {
 
@@ -94,7 +94,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(createRestaurant(name));
     },
     handleSubmitPastEats: () => {
-      dispatch(loadAllRestaurants());
+      dispatch(receiveAllRestaurants());
     }
   };
 };

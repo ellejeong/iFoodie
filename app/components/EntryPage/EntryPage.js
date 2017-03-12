@@ -28,7 +28,6 @@ class EntryPage extends Component {
   }
 
 
-
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
     .then((place) => {
@@ -39,6 +38,9 @@ class EntryPage extends Component {
     .catch(error => console.log(error.message));  // error is a Javascript Error object 
   }
 
+  // componentWillMount() {
+  //   loadRestaurant(this.props.name);
+  // }
 
   setDate() {
 
@@ -47,6 +49,10 @@ class EntryPage extends Component {
   handlePress() {
     // this.props.handlePress();
     Actions.newDish();
+  }
+
+  onSavePress() {
+    Actions.restaurants();
   }
 
   render() {
@@ -110,7 +116,7 @@ class EntryPage extends Component {
           </View>
 
         <View style={styles.saveButton}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.onSavePress}>
             <Text style={styles.saveButtonTxt}>save entry</Text>
           </TouchableOpacity>
         </View>
@@ -136,6 +142,18 @@ const mapStateToProps = state => {
 //   }
 // }
 
+
+// const mapStateToProps = state => {
+//   return { dishes: state.dishes }
+// };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     dishes: restaurant => {
+//       return dispatch(loadRestaurant(restaurant));
+//     }
+//   };
+// };
 export default connect(mapStateToProps)(EntryPage);
 
 const styles = StyleSheet.create({
