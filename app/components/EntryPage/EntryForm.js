@@ -10,13 +10,10 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-
-
-// import DropDown, { Select, Option, OptionList } from 'react-native-selectme';
-
 import {Select, Option} from "react-native-chooser";
 import Entry from './Entry';
 import { updateRestaurant } from '../../actions/index';
+const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
 const ImagePicker = require('react-native-image-picker');
 const cam = require('../../images/cam.png')
 
@@ -119,15 +116,35 @@ render() {
 
         <View style={styles.dishContainer}>
             <Text style={styles.dish}>Dish Name: </Text>
-            <TextInput
-                    onChangeText={this.onDishChange}
-                    style={styles.dishInput}
-                    placeholder="Dish Name"
-                    placeholderTextColor='#9cd19d'
-                    returnKeyType= "done"
-                    autoCorrect={false}
-                    value={this.state.dish}
-                />
+      <GooglePlacesAutocomplete
+            placeholder='Enter Location'
+            minLength={2}
+            autoFocus={false}
+            fetchDetails={true}
+            query={{
+          // available options: https://developers.google.com/places/web-service/autocomplete
+                key: 'AIzaSyBX24ClG46CmZeN9iSOu9tCKJnljh9b09Q',
+                language: 'en', // language of the results
+                types: '(cities)', // default: 'geocode'
+            }}
+            styles={{
+                    textInputContainer: {
+                        backgroundColor: 'rgba(0,0,0,0)',
+                        borderTopWidth: 0,
+                        borderBottomWidth:0
+                    },
+                    textInput: {
+                        marginLeft: 0,
+                        marginRight: 0,
+                        height: 38,
+                        color: '#5d5d5d',
+                        fontSize: 16
+                    },
+                    predefinedPlacesDescription: {
+                        color: '#1faadb'
+                    },
+            }}
+            currentLocation={false}/>
         </View>
 
         <View style={styles.coursesContainer}>

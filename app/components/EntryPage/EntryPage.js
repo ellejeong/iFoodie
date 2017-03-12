@@ -16,6 +16,10 @@ import RNGooglePlaces from 'react-native-google-places';
 import Entry from './Entry';
 import { loadRestaurant } from '../../actions/index';
 
+
+const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
+
+
 class EntryPage extends Component {
   constructor(props) {
     super(props)
@@ -61,32 +65,49 @@ class EntryPage extends Component {
         </View>
 
             <View style={styles.locationContainer}>
-            <View style={styles.locationLine}>
-            <TextInput
-                style={styles.location}
-                placeholder="Add location here ..."
-                placeholderTextColor='#9cd19d'
-                returnKeyType= "done"
-                autoCorrect={false}
-            />
+                <GooglePlacesAutocomplete
+                      placeholder='Enter Location'
+                      minLength={2}
+                      listViewDisplayed='auto'
+                      autoFocus={false}
+                      fetchDetails={true}
+                      query={{ key: 'AIzaSyBX24ClG46CmZeN9iSOu9tCKJnljh9b09Q',
+                          language: 'en', // language of the results
+                          types: '(cities)' }}
+                      styles={{textInputContainer: {
+                                  backgroundColor: 'rgba(0,0,0,0)',
+                                  borderTopWidth: 0,
+                                  borderBottomWidth:0,
+                                  width: '100%'
+                              },
+                              textInput: {
+                                  marginLeft: 0,
+                                  marginRight: 0,
+                                  height: 38,
+                                  color: '#5d5d5d',
+                                  fontSize: 16
+                              },
+                              predefinedPlacesDescription: {
+                                  color: '#1faadb',
+                                  height: 50
+                              }, }}
+                      currentLocation={false}
+                      nearbyPlacesAPI='GooglePlacesSearch'/>
+
+
             </View>
 
-            <TouchableOpacity style={styles.addLocationButton}
-            onPress={() => this.openSearchModal()}>
-              <Text style={styles.addButtonTxt}>search</Text>
-            </TouchableOpacity>
-            </View>
+
+
+        <View style={styles.entryContainer}>
+          <Entry />
+        </View>
 
           <View style={styles.addButton}>
           <TouchableOpacity onPress={this.handlePress}>
               <Text style={styles.addButtonTxt}>add dish</Text>
             </TouchableOpacity>
           </View>
-
-
-        <View style={styles.entryContainer}>
-          <Entry />
-        </View>
 
         <View style={styles.saveButton}>
           <TouchableOpacity>
@@ -153,11 +174,13 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     flexDirection:'row',
+    flex: 2,
     alignItems: 'flex-start',
     height: 50
   },
   location: {
       color: "#FFFFFF",
+      flex: 2,
       marginTop: 10,
       width: '75%',
       textAlign: 'left',
@@ -165,10 +188,6 @@ const styles = StyleSheet.create({
       height: 40,
       fontSize: 17,
       borderRadius: 2
-  },
-  locationLine: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#486d47'
   },
   addLocationButton: {
     marginTop: 20,
@@ -186,7 +205,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   addButton: {
+    position: 'absolute',
     marginTop: 20,
+    bottom: 10,
+    left: 10,
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
