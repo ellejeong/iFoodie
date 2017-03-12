@@ -8,38 +8,66 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+
 
 // import DropDown, { Select, Option, OptionList } from 'react-native-selectme';
 
 import {Select, Option} from "react-native-chooser";
 import Entry from './Entry';
+import { updateRestaurant } from '../../actions/index';
 const ImagePicker = require('react-native-image-picker');
 const cam = require('../../images/cam.png')
 
-export default class EntryPage extends Component {
+class EntryPage extends Component {
 
   constructor(props) {
     super(props);
- 
+
     this.state = {
       imagePath: null,
       course: '',
       picSource: '',
+      dish: '',
+      experience: '',
+      name: this.props.name,
+      date: this.props.date
     };
+
+    this.onSelect = this.onSelect.bind(this);
+    this.onExperienceChange = this.onExperienceChange.bind(this);
+    this.onDishChange = this.onDishChange.bind(this);
+    this.onDataSave = this.onDataSave.bind(this);
   }
- 
+
 onSelect(data) {
   this.setState({
       course: data
     });
 }
 
+onExperienceChange(experience) {
+    this.setState({ experience });
+}
+
+onDishChange(dish) {
+    this.setState({ dish });
+}
+
+onDataSave() {
+    let formData = Object.assign({}, this.state);
+    console.log('formdata', formData);
+    this.props.onDataSave(formData);
+    Actions.entry();
+}
+
 pickImage() {
     const options = {
         title: 'Select Picture',
         storageOptions: {
-            skipBackup: true,
-            path: 'images'
+        skipBackup: true,
+        path: 'images'
         }
     }
 
@@ -69,11 +97,11 @@ render() {
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
         <View style={styles.dateContainer}>
-            <Text style={styles.date}>MARCH 10TH 2017</Text>
+            <Text style={styles.date}>{this.props.date}</Text>
         </View>
 
         <View style={styles.headerContainer}>
-            <Text style={styles.restaurant}>EDI AND THE WOLF</Text>
+            <Text style={styles.restaurant}>{this.props.name}</Text>
         </View>
 
         <View style={styles.locationContainer}>
@@ -86,27 +114,29 @@ render() {
             <TouchableOpacity onPress={this.pickImage.bind(this)}>
                 <Image source={cam} style={{width: 40, height: 40}} />
             </TouchableOpacity>
-            
+
         </View>
 
         <View style={styles.dishContainer}>
             <Text style={styles.dish}>Dish Name: </Text>
-                <TextInput
+            <TextInput
+                    onChangeText={this.onDishChange}
                     style={styles.dishInput}
                     placeholder="Dish Name"
                     placeholderTextColor='#9cd19d'
                     returnKeyType= "done"
                     autoCorrect={false}
+                    value={this.state.dish}
                 />
         </View>
 
         <View style={styles.coursesContainer}>
-            <Text style={styles.courses}>Course: {this.state.course} </Text>
+            <Text style={styles.courses}>Course: {this.state.course ? this.state.course : ''} </Text>
 
-            <Select onSelect = {this.onSelect.bind(this)}
-                defaultText  = "Type of course ..."
-                backdropStyle  = {{backgroundColor : "#9cd19d"}}
-                optionListStyle = {{backgroundColor : "#F5FCFF", height: 100}}>
+            <Select onSelect={this.onSelect}
+                defaultText ="Type of course ..."
+                backdropStyle ={{backgroundColor : "#9cd19d"}}
+                optionListStyle={{backgroundColor : "#F5FCFF", height: 100}}>
                 <Option>appetizer</Option>
                 <Option>starter</Option>
                 <Option>dessert</Option>
@@ -115,7 +145,7 @@ render() {
                 <Option>h'ors d'ouvres</Option>
                 <Option>snack</Option>
                 <Option>side order</Option>
-                <Option>happy hour</Option>             
+                <Option>happy hour</Option>
             </Select>
 
         </View>
@@ -123,25 +153,45 @@ render() {
         <View style={styles.expContainer}>
         <Text style={styles.exp}>Experience: </Text>
             <TextInput
+                onChangeText={this.onExperienceChange}
                 style={styles.expInput}
                 placeholder="Your thoughts about the dish here ..."
                 placeholderTextColor='#9cd19d'
                 underlineColor= '#447f45'
                 returnKeyType= "done"
                 autoCorrect={false}
+                value={this.state.experience}
             />
         </View>
 
         <View style={styles.saveButton}>
-          <TouchableOpacity>
-            <Text style={styles.saveButtonTxt}>save dish</Text>
-          </TouchableOpacity>
-        </View> 
+            <TouchableOpacity onPress={this.onDataSave}>
+                <Text style={styles.saveButtonTxt}>save dish</Text>
+            </TouchableOpacity>
+        </View>
 
       </KeyboardAvoidingView>
     );
   }
 }
+
+const mapStateToProps = state => {
+    return {
+        date: state.restaurant.date,
+        name: state.restaurant.name
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDataSave: (restaurant) => {
+            console.log('restaurant in onPress', restaurant);
+            dispatch(updateRestaurant(restaurant));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EntryPage);
 
 const styles = StyleSheet.create({
   container: {
@@ -198,7 +248,7 @@ const styles = StyleSheet.create({
       height: 100,
      fontWeight: 'bold'
   },
-  
+
   photoContainer: {
      flexDirection:'row',
      marginBottom: 30,
@@ -217,7 +267,7 @@ const styles = StyleSheet.create({
      flexDirection:'row',
      marginBottom: 10
   },
-  
+
   dish: {
       color: "#447f45",
       textAlign: 'left',
@@ -232,7 +282,7 @@ const styles = StyleSheet.create({
       opacity: 0.9,
       fontSize: 15
    },
-   
+
 
 
 
