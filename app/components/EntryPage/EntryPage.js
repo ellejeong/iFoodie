@@ -9,18 +9,21 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import { connect } from 'react-redux';
-
-import Entry from './Entry';
+import { Actions } from 'react-native-router-flux';
 
 import RNGooglePlaces from 'react-native-google-places';
-// const google = 'AIzaSyBX24ClG46CmZeN9iSOu9tCKJnljh9b09Q';
-// This API key can be used in this project and with any API that supports it. To use this key in your application, pass it with the key=API_KEY parameter.
 
+import Entry from './Entry';
+import { loadRestaurant } from '../../actions/index';
 
 class EntryPage extends Component {
   constructor(props) {
     super(props)
+
+    this.handlePress = this.handlePress.bind(this);
   }
+
+
 
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
@@ -32,38 +35,50 @@ class EntryPage extends Component {
     .catch(error => console.log(error.message));  // error is a Javascript Error object 
   }
 
+
+  setDate() {
+
+  }
+
+  handlePress() {
+    // this.props.handlePress();
+    Actions.newDish();
+  }
+
   render() {
     console.log('props in entry page', this.props);
-    const temp = new Date;
-    const date = temp.toString().toUpperCase().slice(0, 15);
+    // const temp = new Date;
+    // const date = temp.toString().toUpperCase().slice(0, 15);
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
         <View style={styles.dateContainer}>
-          <Text style={styles.date}>{date}</Text>
+          <Text style={styles.date}>{this.props.date}</Text>
         </View>
 
         <View style={styles.headerContainer}>
-          <Text style={styles.restaurant}>{this.props.restaurant.name}</Text>
+          <Text style={styles.restaurant}>{this.props.name}</Text>
         </View>
 
             <View style={styles.locationContainer}>
+            <View style={styles.locationLine}>
             <TextInput
                 style={styles.location}
                 placeholder="Add location here ..."
                 placeholderTextColor='#9cd19d'
-                underlineColor= '#447f45'
                 returnKeyType= "done"
                 autoCorrect={false}
             />
-            <TouchableOpacity style={styles.button}
+            </View>
+
+            <TouchableOpacity style={styles.addLocationButton}
             onPress={() => this.openSearchModal()}>
-            <Text>Pick a Place</Text>
-          </TouchableOpacity>
+              <Text style={styles.addButtonTxt}>search</Text>
+            </TouchableOpacity>
             </View>
 
           <View style={styles.addButton}>
-            <TouchableOpacity>
+          <TouchableOpacity onPress={this.handlePress}>
               <Text style={styles.addButtonTxt}>add dish</Text>
             </TouchableOpacity>
           </View>
@@ -85,10 +100,20 @@ class EntryPage extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('state', state);
   return {
-    restaurant: state.restaurant
+    name: state.restaurant.name,
+    date: state.restaurant.date
   };
 };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     handlePress: () => {
+//       dispatch()
+//     }
+//   }
+// }
 
 export default connect(mapStateToProps)(EntryPage);
 
@@ -127,20 +152,33 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
   },
   locationContainer: {
-    flexDirection:'column',
+    flexDirection:'row',
     alignItems: 'flex-start',
-    borderBottomColor:'#447f45',
-    borderBottomWidth: 1,
+    height: 50
   },
   location: {
       color: "#FFFFFF",
-      marginTop: 5,
-      width: '100%',
+      marginTop: 10,
+      width: '75%',
       textAlign: 'left',
       opacity: 0.9,
-      fontSize: 15,
-      height: 25,
+      height: 40,
+      fontSize: 17,
       borderRadius: 2
+  },
+  locationLine: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#486d47'
+  },
+  addLocationButton: {
+    marginTop: 20,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: '#447f45',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 100,
+    width: 72
   },
   entryContainer: {
     flexDirection: 'column',
