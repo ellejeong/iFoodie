@@ -9,41 +9,42 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-
 
 import Entry from './Entry';
-import { loadRestaurant } from '../../actions/index';
+
+import RNGooglePlaces from 'react-native-google-places';
+// const google = 'AIzaSyBX24ClG46CmZeN9iSOu9tCKJnljh9b09Q';
+// This API key can be used in this project and with any API that supports it. To use this key in your application, pass it with the key=API_KEY parameter.
+
 
 class EntryPage extends Component {
   constructor(props) {
     super(props)
-
-    this.handlePress = this.handlePress.bind(this);
   }
 
-  setDate() {
-
-  }
-
-  handlePress() {
-    // this.props.handlePress();
-    Actions.newDish();
+  openSearchModal() {
+    RNGooglePlaces.openAutocompleteModal()
+    .then((place) => {
+        console.log(place);
+        // place represents user's selection from the 
+        // suggestions and it is a simplified Google Place object. 
+    })
+    .catch(error => console.log(error.message));  // error is a Javascript Error object 
   }
 
   render() {
     console.log('props in entry page', this.props);
-    // const temp = new Date;
-    // const date = temp.toString().toUpperCase().slice(0, 15);
+    const temp = new Date;
+    const date = temp.toString().toUpperCase().slice(0, 15);
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
         <View style={styles.dateContainer}>
-          <Text style={styles.date}>{this.props.date}</Text>
+          <Text style={styles.date}>{date}</Text>
         </View>
 
         <View style={styles.headerContainer}>
-          <Text style={styles.restaurant}>{this.props.name}</Text>
+          <Text style={styles.restaurant}>{this.props.restaurant.name}</Text>
         </View>
 
             <View style={styles.locationContainer}>
@@ -55,10 +56,14 @@ class EntryPage extends Component {
                 returnKeyType= "done"
                 autoCorrect={false}
             />
+            <TouchableOpacity style={styles.button}
+            onPress={() => this.openSearchModal()}>
+            <Text>Pick a Place</Text>
+          </TouchableOpacity>
             </View>
 
           <View style={styles.addButton}>
-          <TouchableOpacity onPress={this.handlePress}>
+            <TouchableOpacity>
               <Text style={styles.addButtonTxt}>add dish</Text>
             </TouchableOpacity>
           </View>
@@ -80,20 +85,10 @@ class EntryPage extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state', state);
   return {
-    name: state.restaurant.name,
-    date: state.restaurant.date
+    restaurant: state.restaurant
   };
 };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     handlePress: () => {
-//       dispatch()
-//     }
-//   }
-// }
 
 export default connect(mapStateToProps)(EntryPage);
 

@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import firebase from 'firebase';
 
-// import firebaseInfo from '../firebaseSetup';
+import firebaseInfo from '../firebaseSetup';
 import reducers from './reducers/index';
 import Router from './Routers';
 
