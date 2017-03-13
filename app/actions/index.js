@@ -78,8 +78,10 @@ export const receiveAllRestaurants = () => {
 		firebase.database().ref('/restaurants').once('value')
 			.then(snapshot => {
 				console.log('SNAPSHOT', snapshot.val());
-				dispatch(loadAllRestaurants(snapshot.val()));
+				return snapshot.val();
+				// dispatch(loadAllRestaurants(snapshot.val()));
 			})
+			.then(snapshot => { dispatch(loadAllRestaurants(snapshot));})
 			.catch(console.error);
 	};
 };
