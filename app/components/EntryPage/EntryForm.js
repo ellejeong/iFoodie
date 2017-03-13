@@ -39,7 +39,7 @@ class EntryPage extends Component {
       experience: '',
       name: this.props.name,
       date: this.props.date,
-      imageSource: 'cam'
+      imageSource: '../../images/cam.png'
     };
 
     this.onSelect = this.onSelect.bind(this);
