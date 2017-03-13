@@ -106,7 +106,7 @@ class EntryPage extends Component {
 
 
         <View style={styles.entryContainer}>
-          <Entry />
+          {this.props ? <Entry /> : null}
         </View>
 
           <View style={styles.addButton}>
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     flexDirection:'row',
-    flex: 2,
+    flexGrow: 2,
     alignItems: 'flex-start',
     height: 50
   },
