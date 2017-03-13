@@ -2,30 +2,38 @@ import React from 'react';
 
 import { ADD_RESTAURANT, LOAD_ALL_RESTAURANTS, LOAD_RESTAURANT,  EDIT_RESTAURANT, EDIT_ADDRESS } from '../actions/index';
 
-const initialState = {};
+const initialState = {
+	// course: '',
+	// date: '',
+	// dish: '',
+	// experience: '',
+	// imagePath: 'http://placehold.it/200x200?text=1',
+	// name: '',
+	// picSource: '',
+	// dishes: []
+};
 
 const restaurant = (state = initialState, action) => {
 	console.log('action in reducer:', action);
-	let newState = { date: action.date, name: action.name };
-			console.log('newstate: ', newState);
 
 	switch (action.type) {
 
 		case ADD_RESTAURANT:
-			return newState;
+			return Object.assign({}, state, { date: action.date }, { name: action.name });
 
 		case LOAD_ALL_RESTAURANTS:
-		console.log('got to reducer');
-			return action.restaurants;
+			return Object.assign({}, state, action.restaurants);
 
 		case LOAD_RESTAURANT:
 			return action.name;
 
 		case EDIT_RESTAURANT:
-			return action.restaurant;
+			// return {restaurant: action.restaurant}
+			return Object.assign({}, state, {dishes: action.dish});
 
 		case EDIT_ADDRESS:
-			return Object.assign({}, state, { address: action.address }, { name: action.name});
+			// return Object.assign({}, state, { address: action.address }, { name: action.name });
+			return { address: action.address, name: action.name };
 
 		default:
 			return state;

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import firebase from 'firebase';
 
 import RNGooglePlaces from 'react-native-google-places';
 
@@ -25,6 +26,7 @@ class EntryPage extends Component {
     super(props)
 
     this.handlePress = this.handlePress.bind(this);
+    this.onSavePress = this.onSavePress.bind(this);
   }
 
   // componentWillMount() {
@@ -36,7 +38,6 @@ class EntryPage extends Component {
   }
 
   handlePress() {
-    // this.props.handlePress();
     Actions.newDish();
   }
 
@@ -45,7 +46,6 @@ class EntryPage extends Component {
   }
 
   render() {
-    console.log('props in entry page', this.props);
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
@@ -56,7 +56,7 @@ class EntryPage extends Component {
         <View style={styles.headerContainer}>
           <Text style={styles.restaurant}>{this.props.name}</Text>
         </View>
-
+        {}
             <View style={styles.locationContainer}>
                 <GooglePlacesAutocomplete
                       placeholder='Enter Location'
@@ -65,9 +65,7 @@ class EntryPage extends Component {
                       autoFocus={false}
                       fetchDetails={true}
                       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                        this.props.updateAddress(data.description, this.props.name)
-                        console.log(data);
-                        console.log(details);
+                        this.props.addAddress(data.description, this.props.name)
                       }}
                       query={{ key: 'AIzaSyBX24ClG46CmZeN9iSOu9tCKJnljh9b09Q',
                           language: 'en', // language of the results
@@ -124,26 +122,15 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+// const mapDispatchToProps = dispatch => ({
 
-  updateAddress(address, name) {
-    return dispatch(addAddress(address, name));
-  }
-});
+//   updateAddress(address, name) {
+//     return dispatch(addAddress(address, name));
+//     // firebase.database().ref(`/restaurants/${name}`).push({ address, name })
+//   }
+// });
 
-
-// const mapStateToProps = state => {
-//   return { dishes: state.dishes }
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     dishes: restaurant => {
-//       return dispatch(loadRestaurant(restaurant));
-//     }
-//   };
-// };
-export default connect(mapStateToProps, mapDispatchToProps)(EntryPage);
+export default connect(mapStateToProps, {loadRestaurant, addAddress})(EntryPage);
 
 const styles = StyleSheet.create({
   container: {
