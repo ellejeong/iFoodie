@@ -42,7 +42,7 @@ export default class Entrys extends Component {
 
         <View style={styles.coursesContainer}>
             <Text style={styles.courses}>Course: </Text>
-            <Text> Breakfast </Text>
+            <Text> {this.props.dishes.course} </Text>
 
         </View>
 
