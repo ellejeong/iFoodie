@@ -63,14 +63,15 @@ export const createRestaurant = name => {
 };
 
 
-// export const loadRestaurant = restaurant => {
-// 	return dispatch => {
-// 		firebase.database().ref(`/restaurants/${restaurant}`).on('value', snapshot => {
-// 			console.log('snapshot.val()', snapshot.val());
-// 			dispatch({ type: LOAD_RESTAURANT, name: snapshot.val() });
-// 		});
-// 	};
-// };
+export const loadRestaurant = restaurantName => {
+	return dispatch => {
+		firebase.database().ref(`/restaurants/${restaurantName}`).once('value')
+			.then(snapshot => {
+				console.log('snapshot.val()', snapshot.val());
+				dispatch({ type: LOAD_RESTAURANT, name: snapshot.val() });
+			});
+	};
+};
 
 
 export const receiveAllRestaurants = () => {

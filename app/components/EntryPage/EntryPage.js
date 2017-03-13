@@ -29,9 +29,9 @@ class EntryPage extends Component {
     this.onSavePress = this.onSavePress.bind(this);
   }
 
-  // componentWillMount() {
-  //   loadRestaurant(this.props.name);
-  // }
+  componentWillMount() {
+    loadRestaurant(this.props.name);
+  }
 
   setDate() {
 
@@ -94,7 +94,7 @@ class EntryPage extends Component {
             </View>
 
         <View style={styles.entryContainer}>
-          {this.props ? <Entry /> : null}
+          {this.props.dishes ? <Entry dishes={this.props.dishes} /> : null}
         </View>
 
           <View style={styles.addButton}>
@@ -118,7 +118,8 @@ const mapStateToProps = state => {
   console.log('state', state);
   return {
     name: state.restaurant.name,
-    date: state.restaurant.date
+    date: state.restaurant.date,
+    dishes: state.restaurant.dishes
   };
 };
 
