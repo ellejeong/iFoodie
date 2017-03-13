@@ -15,7 +15,7 @@ import firebase from 'firebase';
 import RNGooglePlaces from 'react-native-google-places';
 
 import Entry from './Entry';
-import { loadRestaurant, addAddress } from '../../actions/index';
+import { loadRestaurant, addAddress, receiveAllRestaurants } from '../../actions/index';
 
 
 const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
@@ -42,6 +42,7 @@ class EntryPage extends Component {
   }
 
   onSavePress() {
+    // this.props.receiveAllRestaurants();
     Actions.restaurants();
   }
 
@@ -131,7 +132,7 @@ const mapStateToProps = state => {
 //   }
 // });
 
-export default connect(mapStateToProps, {loadRestaurant, addAddress})(EntryPage);
+export default connect(mapStateToProps, {loadRestaurant, addAddress, receiveAllRestaurants})(EntryPage);
 
 const styles = StyleSheet.create({
   container: {

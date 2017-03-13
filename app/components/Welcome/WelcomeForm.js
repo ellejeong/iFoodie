@@ -35,7 +35,7 @@ class WelcomeForm extends Component {
 
   handlePastEats() {
     this.props.handleSubmitPastEats();
-    Actions.restaurants();
+    // Actions.restaurants();
   }
 
   handleChange(text) {

@@ -22,7 +22,7 @@ const restaurant = (state = initialState, action) => {
 			return Object.assign({}, state, { date: action.date }, { name: action.name });
 
 		case LOAD_ALL_RESTAURANTS:
-			return Object.assign({}, state, action.restaurants);
+			return Object.assign({}, state, { restaurants: action.restaurants });
 
 		case LOAD_RESTAURANT:
 			return action.name;
@@ -32,8 +32,7 @@ const restaurant = (state = initialState, action) => {
 			return Object.assign({}, state, {dishes: action.dish});
 
 		case EDIT_ADDRESS:
-			// return Object.assign({}, state, { address: action.address }, { name: action.name });
-			return { address: action.address, name: action.name };
+			return Object.assign({}, state, { address: action.address });
 
 		default:
 			return state;
