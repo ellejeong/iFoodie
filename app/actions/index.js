@@ -52,10 +52,10 @@ export const createRestaurant = name => {
 				firebase.database().ref(`/restaurants/${name}`).set({ date, name })
 					.then(firebase.database().ref(`/restaurants/${name}`).once('value')
 						.then(snapshot => {
-							// dispatch(addRestaurant(snapshot.val()));
-							let sendData = addRestaurant(snapshot.val());
-							console.log('senddata', sendData);
-							dispatch(sendData);
+							dispatch(addRestaurant(snapshot.val()));
+							// let sendData = addRestaurant(snapshot.val());
+							// console.log('senddata', sendData);
+							// dispatch(sendData);
 						}))
 					.catch(console.error);
 			};
@@ -63,14 +63,14 @@ export const createRestaurant = name => {
 
 };
 
-export const loadRestaurant = restaurant => {
-	return dispatch => {
-		firebase.database().ref(`/restaurants/${restaurant}`).on('value', snapshot => {
-			console.log('snapshot.val()', snapshot.val());
-			dispatch({ type: LOAD_RESTAURANT, name: snapshot.val() });
-		});
-	};
-};
+// export const loadRestaurant = restaurant => {
+// 	return dispatch => {
+// 		firebase.database().ref(`/restaurants/${restaurant}`).on('value', snapshot => {
+// 			console.log('snapshot.val()', snapshot.val());
+// 			dispatch({ type: LOAD_RESTAURANT, name: snapshot.val() });
+// 		});
+// 	};
+// };
 
 
 export const receiveAllRestaurants = () => {
@@ -86,11 +86,12 @@ export const receiveAllRestaurants = () => {
 
 export const updateRestaurant = (restaurant) => {
 	console.log('restauratn:', restaurant);
-	return () => {
-		firebase.database().ref(`/restaurants/${restaurant.name}/${restaurant.dish}`).update(restaurant)
-			.then(dispatch => {
+	return dispatch => {
+		firebase.database().ref(`/restaurants/${restaurant.name}/${restaurant.dish}`).push(restaurant)
+			.then(() => {
 				dispatch(editRestaurant(restaurant));
-		})
+			})
+		.catch(console.error);
 	}
 }
 
@@ -106,6 +107,7 @@ export const addAddress = (address, name) => {
 						let nomen = snapshot.val().name;
 						dispatch(editAddress(addy, nomen));
 					});
-			});
+			})
+		.catch(console.error)
 	};
 };

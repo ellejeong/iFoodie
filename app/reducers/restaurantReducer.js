@@ -22,8 +22,7 @@ const restaurant = (state = initialState, action) => {
 			return action.name;
 
 		case EDIT_RESTAURANT:
-			console.log('action in edit', action);
-			break;
+			return action.restaurant;
 
 		case EDIT_ADDRESS:
 			return Object.assign({}, state, { address: action.address }, { name: action.name});

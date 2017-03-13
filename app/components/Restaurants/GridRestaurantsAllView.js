@@ -32,7 +32,6 @@ const mapStateToProps = state => {
 
 export class GridRestaurantsAllView extends Component {
   constructor(props) {
-    console.log('am i here?');
     super(props);
     var dataSource = new ListView.DataSource({rowHasChanged:(r1, r2) => r1.guid != r2.guid});
     this.state = {

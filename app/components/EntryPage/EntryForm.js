@@ -179,12 +179,14 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    onDataSave(restaurant) {
-        console.log('restaurant in onPress', restaurant);
-        dispatch(updateRestaurant(restaurant));
-    },
-});
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDataSave(restaurant) {
+            console.log('restaurant in onPress', restaurant);
+            dispatch(updateRestaurant(restaurant));
+        }
+    }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryPage);
 
