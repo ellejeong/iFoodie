@@ -14,7 +14,7 @@ import { Actions } from 'react-native-router-flux';
 import RNGooglePlaces from 'react-native-google-places';
 
 import Entry from './Entry';
-import { loadRestaurant } from '../../actions/index';
+import { loadRestaurant, addAddress } from '../../actions/index';
 
 
 const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
@@ -32,10 +32,10 @@ class EntryPage extends Component {
     RNGooglePlaces.openAutocompleteModal()
     .then((place) => {
         console.log(place);
-        // place represents user's selection from the 
-        // suggestions and it is a simplified Google Place object. 
+        // place represents user's selection from the
+        // suggestions and it is a simplified Google Place object.
     })
-    .catch(error => console.log(error.message));  // error is a Javascript Error object 
+    .catch(error => console.log(error.message));  // error is a Javascript Error object
   }
 
   // componentWillMount() {
@@ -77,6 +77,11 @@ class EntryPage extends Component {
                       listViewDisplayed='auto'
                       autoFocus={false}
                       fetchDetails={true}
+                      onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                        this.props.updateAddress(data.description, this.props.name)
+                        console.log(data);
+                        console.log(details);
+                      }}
                       query={{ key: 'AIzaSyBX24ClG46CmZeN9iSOu9tCKJnljh9b09Q',
                           language: 'en', // language of the results
                           types: '(cities)' }}
@@ -134,13 +139,12 @@ const mapStateToProps = state => {
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     handlePress: () => {
-//       dispatch()
-//     }
-//   }
-// }
+const mapDispatchToProps = dispatch => ({
+
+  updateAddress(address, name) {
+    return dispatch(addAddress(address, name));
+  }
+});
 
 
 // const mapStateToProps = state => {
@@ -154,7 +158,7 @@ const mapStateToProps = state => {
 //     }
 //   };
 // };
-export default connect(mapStateToProps)(EntryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EntryPage);
 
 const styles = StyleSheet.create({
   container: {

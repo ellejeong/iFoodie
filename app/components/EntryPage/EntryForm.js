@@ -102,7 +102,7 @@ render() {
         </View>
 
         <View style={styles.locationContainer}>
-            <Text style={styles.location}>45-18 STREET, FLUSHING, NEW YORK 12345 </Text>
+            <Text style={styles.location}>{this.props.location} </Text>
         </View>
 
 
@@ -174,18 +174,17 @@ render() {
 const mapStateToProps = state => {
     return {
         date: state.restaurant.date,
-        name: state.restaurant.name
+        name: state.restaurant.name,
+        location: state.restaurant.address
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onDataSave: (restaurant) => {
-            console.log('restaurant in onPress', restaurant);
-            dispatch(updateRestaurant(restaurant));
-        }
-    }
-}
+const mapDispatchToProps = (dispatch) => ({
+    onDataSave(restaurant) {
+        console.log('restaurant in onPress', restaurant);
+        dispatch(updateRestaurant(restaurant));
+    },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryPage);
 

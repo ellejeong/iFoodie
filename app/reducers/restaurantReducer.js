@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ADD_RESTAURANT, LOAD_ALL_RESTAURANTS, LOAD_RESTAURANT,  EDIT_RESTAURANT } from '../actions/index';
+import { ADD_RESTAURANT, LOAD_ALL_RESTAURANTS, LOAD_RESTAURANT,  EDIT_RESTAURANT, EDIT_ADDRESS } from '../actions/index';
 
 const initialState = {};
 
@@ -24,6 +24,9 @@ const restaurant = (state = initialState, action) => {
 		case EDIT_RESTAURANT:
 			console.log('action in edit', action);
 			break;
+
+		case EDIT_ADDRESS:
+			return Object.assign({}, state, { address: action.address }, { name: action.name});
 
 		default:
 			return state;

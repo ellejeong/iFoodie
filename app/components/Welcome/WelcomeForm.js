@@ -24,19 +24,16 @@ class WelcomeForm extends Component {
 
     this.handleSubmitNewRestaurant = this.handleSubmitNewRestaurant.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmitPastEats = this.handleSubmitPastEats.bind(this);
+    this.handlePastEats = this.handlePastEats.bind(this);
 
   }
 
-  handleSubmitNewRestaurant(event) {
-    // console.log('Props:', this.props);
-    this.props.handleSubmitNewRestaurant(this.state.text);
-    // console.log('TEXT', this.state.text);
-    // createRestaurant(this.state.text);
+  handleSubmitNewRestaurant() {
+    this.props.handleSubmit(this.state.text);
     Actions.entry();
   }
 
-  handleSubmitPastEats(event) {
+  handlePastEats() {
     this.props.handleSubmitPastEats();
     Actions.restaurants();
   }
@@ -73,7 +70,7 @@ class WelcomeForm extends Component {
           </View>
 
           <View style={styles.buttonTwo}>
-          <TouchableOpacity onPress={this.handleSubmitPastEats}>
+            <TouchableOpacity onPress={this.handlePastEats}>
               <Text style={styles.buttonTxt}>Past Eats</Text>
           </TouchableOpacity>
           </View>
@@ -83,21 +80,15 @@ class WelcomeForm extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   console.log('state in mapStateToProps', state);
-//   return { name: state.restaurant.name };
-// };
-
-const mapDispatchToProps = dispatch => {
-  return {
-    handleSubmitNewRestaurant: (name) => {
-      dispatch(createRestaurant(name));
-    },
-    handleSubmitPastEats: () => {
-      dispatch(receiveAllRestaurants());
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  handleSubmit(name) {
+    dispatch(createRestaurant(name));
+  },
+  handleSubmitPastEats() {
+    dispatch(receiveAllRestaurants());
+  }
+}
+);
 
 export default connect(null, mapDispatchToProps)(WelcomeForm);
 

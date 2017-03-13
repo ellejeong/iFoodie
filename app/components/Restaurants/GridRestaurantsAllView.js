@@ -10,7 +10,8 @@ import {
   Text
 } from 'react-native';
 
-import { receiveAllRestaurants } from '../../reducers/index';
+import { receiveAllRestaurants } from '../../actions/index';
+import { store } from '../../App';
 
 var items = Array.apply(null, Array(60)).map((v, i) => {
     return 'http://placehold.it/200x200?text=1'
@@ -18,21 +19,16 @@ var items = Array.apply(null, Array(60)).map((v, i) => {
 
 var dummy = require('../../images/momo.jpg');
 
-console.log('got here');
-
 const mapStateToProps = state => {
-  console.log('am i here? in mapStateToProps');
-  return { restaurants: state.restaurants }
+  console.log(state);
+  return { restaurants: state.restaurants };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   console.log('am i even fucking here? in mapdispatch to props?');
-//   return {
-//     componentWillMount:
-//       () => dispatch(receiveAllRestaurants())
-
-//   };
-// };
+// const mapDispatchToProps = dispatch => ({
+//   receiveRestaurants() {
+//     return dispatch(receiveAllRestaurants());
+//   }
+// });
 
 export class GridRestaurantsAllView extends Component {
   constructor(props) {
@@ -48,8 +44,7 @@ export class GridRestaurantsAllView extends Component {
 
 
   componentWillMount() {
-    console.log('loadrestaurants function', this.props);
-    receiveAllRestaurants();
+    return receiveAllRestaurants();
   }
 
   renderRow(rowData) {
@@ -72,13 +67,13 @@ export class GridRestaurantsAllView extends Component {
 
 
 render() {
-    console.log('ALL OF THE RESTAURANTS', this.props);
+    // console.log('ALL OF THE RESTAURANTS', this.props);
     return (
         <View style={styles.bigContainer}>
         <ListView
             dataSource = { this.state.dataSource }
-            renderRow={this.props.restaurants.map(restaurant => {
-            this.renderRow(restaurant);
+            renderRow={this.state.restaurants.map(restaurant => {
+            return this.renderRow(restaurant);
             })}>
         </ListView>
         </View>
