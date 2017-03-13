@@ -29,15 +29,12 @@ class EntryPage extends Component {
     this.onSavePress = this.onSavePress.bind(this);
   }
 
+  // componentWillMount() {
+  //   loadRestaurant(this.props.name);
+  // }
 
-  openSearchModal() {
-    RNGooglePlaces.openAutocompleteModal()
-    .then((place) => {
-        console.log(place);
-        // place represents user's selection from the
-        // suggestions and it is a simplified Google Place object.
-    })
-    .catch(error => console.log(error.message));  // error is a Javascript Error object
+  setDate() {
+
   }
 
   handlePress() {
@@ -96,10 +93,8 @@ class EntryPage extends Component {
 
             </View>
 
-
-
         <View style={styles.entryContainer}>
-          <Entry />
+          {this.props ? <Entry /> : null}
         </View>
 
           <View style={styles.addButton}>
@@ -173,7 +168,7 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     flexDirection:'row',
-    flex: 2,
+    flexGrow: 2,
     alignItems: 'flex-start',
     height: 50
   },

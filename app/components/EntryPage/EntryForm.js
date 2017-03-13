@@ -15,7 +15,16 @@ import Entry from './Entry';
 import { updateRestaurant } from '../../actions/index';
 const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
 const ImagePicker = require('react-native-image-picker');
-const cam = require('../../images/cam.png')
+const cam = require('../../images/cam.png');
+
+
+var options = {
+  title: 'Select an Image',
+  storageOptions: {
+    skipBackup: true,
+  },
+  maxWidth: 480
+};
 
 class EntryPage extends Component {
 
@@ -29,7 +38,8 @@ class EntryPage extends Component {
       dish: '',
       experience: '',
       name: this.props.name,
-      date: this.props.date
+      date: this.props.date,
+      imageSource: 'cam'
     };
 
     this.onSelect = this.onSelect.bind(this);
@@ -59,34 +69,19 @@ onDataSave() {
     Actions.entry();
 }
 
-pickImage() {
-    const options = {
-        title: 'Select Picture',
-        storageOptions: {
-        skipBackup: true,
-        path: 'images'
-        }
-    }
-
-
-    ImagePicker.showImagePicker(options, (response) => {
+selectImage(){
+  ImagePicker.showImagePicker(options, (response) => {
     console.log('Response = ', response);
     if (response.didCancel) {
-        console.log('User cancelled image picker');
-    } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-    } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-    } else {
-        let source = { uri: response.uri };
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        this.setState({
-        image: source
-        });
+      console.log('User cancelled image picker');
     }
-    });
-
+    else if (response.error) {
+      console.log('ImagePicker Error: ', response.error);
+    }
+    else {
+    this.setState({imageSource: response.uri.replace('file://', '')});
+    }
+  });
 }
 
 render() {
@@ -107,11 +102,12 @@ render() {
 
 
         <View style={styles.photoContainer}>
-            {this.state.imagePath ? <Image style={{width: 40, height: 40}} source={{uri: this.state.imagePath}}/> : null}
-            <TouchableOpacity onPress={this.pickImage.bind(this)}>
-                <Image source={cam} style={{width: 40, height: 40}} />
+            <Image source={{uri: this.state.imageSource}} style={styles.image}/>
+            <View style={styles.addPhotoButton}>
+            <TouchableOpacity onPress={this.selectImage.bind(this)}>
+                <Image source={cam} style={{width: 30, height: 30}} />
             </TouchableOpacity>
-
+            </View>
         </View>
 
         <View style={styles.dishContainer}>
@@ -251,6 +247,25 @@ const styles = StyleSheet.create({
      marginBottom: 30,
     alignItems: 'center',
   },
+  addPhotoButton: {
+    position: 'absolute',
+    bottom: 10,
+    left: 150,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#447f45',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 100,
+    width: 37
+  },
+  addPhotoButtonTxt: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    fontSize: 12
+  },
 
   photo: {
       color: "#447f45",
@@ -258,6 +273,11 @@ const styles = StyleSheet.create({
       opacity: 0.9,
       fontSize: 15,
       fontWeight: 'bold'
+  },
+
+  image: {
+    width: 125,
+    height: 125 
   },
 
   dishContainer: {
