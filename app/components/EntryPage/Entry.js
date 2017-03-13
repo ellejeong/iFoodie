@@ -18,6 +18,9 @@ const ImagePicker = require('react-native-image-picker');
 const cam = require('../../images/cam.png')
 
 export default class Entrys extends Component {
+  constructor(props) {
+    super(props)
+  }
 
   render() {
     return (
@@ -34,18 +37,18 @@ export default class Entrys extends Component {
 
         <View style={styles.dishContainer}>
             <Text style={styles.dish}>Dish Name: </Text>
-            <Text> THIS IS DISH NAME </Text>
+            <Text> {this.props.dishes.dish} </Text>
         </View>
 
         <View style={styles.coursesContainer}>
             <Text style={styles.courses}>Course: </Text>
-            <Text> THIS IS COURSE </Text>
+            <Text> {this.props.dishes.course} </Text>
 
         </View>
 
         <View style={styles.expContainer}>
           <Text style={styles.exp}>Experience: </Text>
-          <Text> THIS IS EXPERIENCE </Text>
+          <Text> {this.props.dishes.experience} </Text>
         </View>
 
         <View style={styles.saveButton}>
