@@ -23,10 +23,10 @@ export const loadAllRestaurants = restaurants => {
 	};
 };
 
-export const editRestaurant = restaurant => {
+export const editRestaurant = dish => {
 	return {
 		type: EDIT_RESTAURANT,
-		restaurant
+		dish: dish
 	}
 }
 
@@ -48,20 +48,20 @@ export const editAddress = (address, name) => {
 export const createRestaurant = name => {
 	const temp = new Date;
 	const date = temp.toString().toUpperCase().slice(0, 15);
-			return dispatch => {
-				firebase.database().ref(`/restaurants/${name}`).set({ date, name })
-					.then(firebase.database().ref(`/restaurants/${name}`).once('value')
-						.then(snapshot => {
-							dispatch(addRestaurant(snapshot.val()));
-							// let sendData = addRestaurant(snapshot.val());
-							// console.log('senddata', sendData);
-							// dispatch(sendData);
-						}))
-					.catch(console.error);
-			};
-	// }
-
+	return dispatch => {
+		firebase.database().ref(`/restaurants/${name}`).push({ date, name })
+			.then(data => {
+				let key = data.key;
+				firebase.database().ref(`/restaurants/${name}`).once('value')
+					.then(snapshot => {
+						console.log('snapshot.val', snapshot.val()[key]);
+						dispatch(addRestaurant(snapshot.val()[key]));
+					});
+			})
+			.catch(console.error);
+	};
 };
+
 
 // export const loadRestaurant = restaurant => {
 // 	return dispatch => {
@@ -78,10 +78,10 @@ export const receiveAllRestaurants = () => {
 		firebase.database().ref('/restaurants').once('value')
 			.then(snapshot => {
 				console.log('SNAPSHOT', snapshot.val());
-				return snapshot.val();
-				// dispatch(loadAllRestaurants(snapshot.val()));
+				// return snapshot.val();
+				return dispatch(loadAllRestaurants(snapshot.val()));
 			})
-			.then(snapshot => { dispatch(loadAllRestaurants(snapshot));})
+			// .then(snapshot => { dispatch(loadAllRestaurants(snapshot));})
 			.catch(console.error);
 	};
 };
@@ -89,7 +89,7 @@ export const receiveAllRestaurants = () => {
 export const updateRestaurant = (restaurant) => {
 	console.log('restauratn:', restaurant);
 	return dispatch => {
-		firebase.database().ref(`/restaurants/${restaurant.name}/${restaurant.dish}`).push(restaurant)
+		firebase.database().ref(`/restaurants/${restaurant.name}/${restaurant.dish}`).push({restaurant})
 			.then(() => {
 				dispatch(editRestaurant(restaurant));
 			})
@@ -104,7 +104,7 @@ export const addAddress = (address, name) => {
 				let key = data.key;
 				firebase.database().ref(`/restaurants/${name}/${key}`).once('value')
 					.then(snapshot => {
-						console.log('snapshot', snapshot.val());
+						console.log('SNAPSHOT', snapshot);
 						let addy = snapshot.val().address;
 						let nomen = snapshot.val().name;
 						dispatch(editAddress(addy, nomen));
