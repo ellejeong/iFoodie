@@ -32,9 +32,7 @@ class EntryPage extends Component {
     super(props);
 
     this.state = {
-      imagePath: null,
       course: '',
-      picSource: '',
       dish: '',
       experience: '',
       name: this.props.name,
@@ -119,25 +117,26 @@ render() {
                     placeholderTextColor='#9cd19d'
                     returnKeyType= "done"
                     autoCorrect={false}
-                    value={this.state.dish}/>
+                    value={this.state.dish} />
         </View>
 
         <View style={styles.coursesContainer}>
             <Text style={styles.courses}>Course: {this.state.course ? this.state.course : ''} </Text>
 
-            <Select onSelect={this.onSelect}
+            <Select
+                onSelect={this.onSelect}
                 defaultText ="Type of course ..."
                 backdropStyle ={{backgroundColor : "#9cd19d"}}
                 optionListStyle={{backgroundColor : "#F5FCFF", height: 100}}>
-                <Option>appetizer</Option>
-                <Option>starter</Option>
-                <Option>dessert</Option>
-                <Option>beverage</Option>
-                <Option>main</Option>
-                <Option>h'ors d'ouvres</Option>
-                <Option>snack</Option>
-                <Option>side order</Option>
-                <Option>happy hour</Option>
+                  <Option value="appetizer">appetizer</Option>
+                  <Option value="starter">starter</Option>
+                  <Option value="dessert">dessert</Option>
+                  <Option value="beverage">beverage</Option>
+                  <Option value="main">main</Option>
+                  <Option value="horsdouvres">h'ors d'ouvres</Option>
+                  <Option value="snack">snack</Option>
+                  <Option value="side order">side order</Option>
+                  <Option value="happy hour">happy hour</Option>
             </Select>
 
         </View>
@@ -277,7 +276,7 @@ const styles = StyleSheet.create({
 
   image: {
     width: 125,
-    height: 125 
+    height: 125
   },
 
   dishContainer: {

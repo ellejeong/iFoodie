@@ -48,8 +48,9 @@ export const editAddress = (address, name) => {
 export const createRestaurant = name => {
 	const temp = new Date;
 	const date = temp.toString().toUpperCase().slice(0, 15);
+	const dishes = [];
 	return dispatch => {
-		firebase.database().ref(`/restaurants/${name}`).push({ date, name })
+		firebase.database().ref(`/restaurants/${name}`).push({ date, name, dishes })
 			.then(data => {
 				let key = data.key;
 				firebase.database().ref(`/restaurants/${name}`).once('value')
@@ -87,12 +88,12 @@ export const receiveAllRestaurants = () => {
 	};
 };
 
-export const updateRestaurant = (restaurant) => {
-	console.log('restauratn:', restaurant);
+export const updateRestaurant = (dish) => {
+	console.log('restauratn:', dish);
 	return dispatch => {
-		firebase.database().ref(`/restaurants/${restaurant.name}/${restaurant.dish}`).push({restaurant})
+		firebase.database().ref(`/restaurants/${dish.name}`).push(dish)
 			.then(() => {
-				dispatch(editRestaurant(restaurant));
+				dispatch(editRestaurant(dish));
 			})
 		.catch(console.error);
 	}

@@ -16,6 +16,7 @@ import { updateRestaurant } from '../../actions/index';
 const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
 const ImagePicker = require('react-native-image-picker');
 const cam = require('../../images/cam.png')
+const hold = require('../../images/hold.png')
 
 export default class Entrys extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class Entrys extends Component {
   }
 
   render() {
+    console.log('this.props.dishes', this.props.dishes);
     return (
       <View style={styles.container}>
 
@@ -30,7 +32,7 @@ export default class Entrys extends Component {
         <View style={styles.photoContainer}>
 
             <TouchableOpacity>
-                <Image source={cam} style={{width: 40, height: 40}} />
+                <Image source={hold} style={{width: 40, height: 40}} />
             </TouchableOpacity>
 
         </View>
