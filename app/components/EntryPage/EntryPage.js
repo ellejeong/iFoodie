@@ -27,17 +27,6 @@ class EntryPage extends Component {
     this.handlePress = this.handlePress.bind(this);
   }
 
-
-  openSearchModal() {
-    RNGooglePlaces.openAutocompleteModal()
-    .then((place) => {
-        console.log(place);
-        // place represents user's selection from the
-        // suggestions and it is a simplified Google Place object.
-    })
-    .catch(error => console.log(error.message));  // error is a Javascript Error object
-  }
-
   // componentWillMount() {
   //   loadRestaurant(this.props.name);
   // }
@@ -57,8 +46,6 @@ class EntryPage extends Component {
 
   render() {
     console.log('props in entry page', this.props);
-    // const temp = new Date;
-    // const date = temp.toString().toUpperCase().slice(0, 15);
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
@@ -107,8 +94,6 @@ class EntryPage extends Component {
 
 
             </View>
-
-
 
         <View style={styles.entryContainer}>
           {this.props ? <Entry /> : null}
